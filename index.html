@@ -1,192 +1,103 @@
-‏DOCTYPE html>
-‏<html lang="ar" dir="rtl">
-‏<head>
-‏<meta charset="UTF-8">
-‏<meta name="viewport" content="width=device-width, initial-scale=1.0">
-‏<title>باشا كارد - شحن ألعاب وبرامج</title>
-‏<style>
-‏body{background:#0a1628;color:white;font-family:'Cairo',sans-serif;margin:0;padding:0}
-‏.header{background:#0f1f3a;padding:15px;display:flex;justify-content:space-between;align-items:center;font-weight:bold}
-‏.tabs{display:flex;background:#1a2f4f;margin:10px;border-radius:10px;overflow:hidden}
-‏.tab{flex:1;padding:12px;text-align:center;cursor:pointer;border:none;background:#1a2f4f;color:white;font-size:16px}
-‏.tab.active{background:#25D366;color:#0a1628;font-weight:bold}
-‏.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:15px;padding:20px}
-‏.card{background:#1a2f4f;border-radius:20px;padding:15px;text-align:center;cursor:pointer;transition:0.3s}
-‏.card:hover{transform:scale(1.05);background:#2a3f5f}
-‏.card img{width:70px;height:70px;border-radius:50%;margin-bottom:8px;object-fit:cover}
-‏.whatsapp{position:fixed;bottom:20px;left:20px;background:#25D366;width:60px;height:60px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:30px;text-decoration:none;color:white;z-index:100}
-‏.popup{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.95);justify-content:center;align-items:center;z-index:999;overflow-y:auto}
-‏.popup-content{background:#1a2f4f;padding:20px;border-radius:15px;width:95%;max-width:450px;margin:20px 0}
-‏input{width:100%;padding:12px;margin:8px 0;border-radius:8px;border:none;background:#0f1f3a;color:white;font-size:16px}
-‏.btn{background:#25D366;color:white;padding:14px;border:none;border-radius:8px;width:100%;margin-top:10px;cursor:pointer;font-size:16px;font-weight:bold}
-‏.pkg-btn{background:#0f1f3a;color:white;padding:10px;border:none;border-radius:8px;width:100%;margin:5px 0;cursor:pointer;text-align:right}
-‏.pkg-btn:hover{background:#2a3f5f}
-‏.payment-box{background:#0f1f3a;padding:12px;border-radius:10px;margin:10px 0;text-align:right;font-size:14px;border:1px solid #25D366}
-‏.tab-content{display:none}
-‏.tab-content.active{display:block}
-‏</style>
-‏</head>
-‏<body>
-‏
-‏<div class="header">
-‏  <div>☰</div>
-‏  <div>باشا كارد</div>
-‏  <div>$0.00</div>
-‏</div>
-‏
-‏<div style="text-align:center;padding:10px;background:#1a2f4f;margin:10px;border-radius:10px">★ شكراً لاستخدامك موقع باشا كارد</div>
-‏
-‏<div style="padding:0 20px"><input placeholder="ابحث عن قسم..." style="width:100%;padding:12px;border-radius:10px;border:none;background:#1a2f4f;color:white"></div>
-‏
-‏<div class="tabs">
-‏  <button class="tab active" onclick="openTab('games')">الألعاب</button>
-‏  <button class="tab" onclick="openTab('apps')">البرامج</button>
-‏  <button class="tab" onclick="openTab('balance')">الرصيد</button>
-‏</div>
-‏
-‏<!-- تبويب الألعاب -->
-‏<div id="games" class="tab-content active">
-‏<div class="grid">
-‏  <div class="card" onclick="openGame('pubg')"><img src="https://i.imgur.com/VkB8rXK.png"><br>بجي موبايل</div>
-‏  <div class="card" onclick="openGame('ff')"><img src="https://i.imgur.com/4rM8Q9p.png"><br>فري فاير</div>
-‏  <div class="card" onclick="openGame('codm')"><img src="https://i.imgur.com/8QZ5Z5P.png"><br>كود موبايل</div>
-‏  <div class="card" onclick="openGame('genshin')"><img src="https://i.imgur.com/9XJ5Z5P.png"><br>جينشين</div>
-‏  <div class="card" onclick="openGame('mobilelegends')"><img src="https://i.imgur.com/5XJ5Z5P.png"><br>موبايل ليجند</div>
-‏  <div class="card" onclick="openGame('clash')"><img src="https://i.imgur.com/6XJ5Z5P.png"><br>كلاش اوف كلانس</div>
-‏</div>
-‏</div>
-‏
-‏<!-- تبويب البرامج -->
-‏<div id="apps" class="tab-content">
-‏<div class="grid">
-‏  <div class="card" onclick="openApp('netflix')"><img src="https://i.imgur.com/3XJ5Z5P.png"><br>نتفلكس</div>
-‏  <div class="card" onclick="openApp('shahid')"><img src="https://i.imgur.com/7XJ5Z5P.png"><br>شاهد VIP</div>
-‏  <div class="card" onclick="openApp('spotify')"><img src="https://i.imgur.com/2XJ5Z5P.png"><br>سبوتيفاي</div>
-‏  <div class="card" onclick="openApp('canva')"><img src="https://i.imgur.com/1XJ5Z5P.png"><br>كانفا برو</div>
-‏  <div class="card" onclick="openApp('youtube')"><img src="https://i.imgur.com/0XJ5Z5P.png"><br>يوتيوب بريميوم</div>
-‏  <div class="card" onclick="openApp('telegram')"><img src="https://i.imgur.com/aXJ5Z5P.png"><br>تيليجرام بريميوم</div>
-‏</div>
-‏</div>
-‏
-‏<!-- تبويب الرصيد -->
-‏<div id="balance" class="tab-content">
-‏<div class="grid">
-‏  <div class="card" onclick="openBalance('syriatel')"><img src="https://i.imgur.com/bXJ5Z5P.png"><br>سيريتل</div>
-‏  <div class="card" onclick="openBalance('mtn')"><img src="https://i.imgur.com/cXJ5Z5P.png"><br>MTN</div>
-‏</div>
-‏</div>
-‏
-‏<a href="https://wa.me/963994674808" class="whatsapp">💬</a>
-‏
-‏<!-- نافذة ببجي -->
-‏<div id="pubg" class="popup">
-‏<div class="popup-content">
-‏<h3><img src="https://i.imgur.com/VkB8rXK.png" style="width:40px;vertical-align:middle"> شحن ببجي موبايل</h3>
-‏<button class="pkg-btn" onclick="selectPkg('ببجي 60 UC = 2$')">60 UC = 2$</button>
-‏<button class="pkg-btn" onclick="selectPkg('بجي 120 UC = 4$')">120 UC = 4$</button>
-‏<button class="pkg-btn" onclick="selectPkg('بجي 240 UC = 8$')">240 UC = 8$</button>
-‏<button class="pkg-btn" onclick="selectPkg('بجي 385 UC = 12$')">385 UC = 12$</button>
-‏<button class="pkg-btn" onclick="selectPkg('بجي 660 UC = 20$')">660 UC = 20$</button>
-‏<button class="pkg-btn" onclick="selectPkg('بجي 1800 UC = 50$')">1800 UC = 50$</button>
-‏<input id="pubg_id" placeholder="دخل الايدي Player ID">
-‏<h4>طريقة الدفع - حول وبعدين أكد الطلب:</h4>
-‏<div class="payment-box">
-‏1. شام كاش: <b>b0be4fd36746bc3a0e6ef412dfb4c9cc</b><br>
-‏2. سيريتل كاش: <b>0994674808</b>
-‏</div>
-‏<button class="btn" onclick="sendOrder('pubg_id')">أكد الطلب واتساب</button>
-‏<button class="btn" style="background:#555" onclick="closePopup('pubg')">إلغاء</button>
-‏</div></div>
-‏
-‏<!-- نافذة فري فاير -->
-‏<div id="ff" class="popup">
-‏<div class="popup-content">
-‏<h3><img src="https://i.imgur.com/4rM8Q9p.png" style="width:40px;vertical-align:middle"> شحن فري فاير</h3>
-‏<button class="pkg-btn" onclick="selectPkg('فري فاير 100 جوهرة = 1.5$')">100 جوهرة = 1.5$</button>
-‏<button class="pkg-btn" onclick="selectPkg('فري فاير 310 جوهرة = 4$')">310 جوهرة = 4$</button>
-‏<button class="pkg-btn" onclick="selectPkg('فري فاير 520 جوهرة = 6.5$')">520 جوهرة = 6.5$</button>
-‏<button class="pkg-btn" onclick="selectPkg('فري فاير 1060 جوهرة = 13$')">1060 جوهرة = 13$</button>
-‏<input id="ff_id" placeholder="دخل الايدي Player ID">
-‏<div class="payment-box">
-‏1. شام كاش: <b>b0be4fd36746bc3a0e6ef412dfb4c9cc</b><br>
-‏2. سيريتل كاش: <b>0994674808</b>
-‏</div>
-‏<button class="btn" onclick="sendOrder('ff_id')">أكد الطلب واتساب</button>
-‏<button class="btn" style="background:#555" onclick="closePopup('ff')">إلغاء</button>
-‏</div></div>
-‏
-‏<!-- نافذة البرامج -->
-‏<div id="app_popup" class="popup">
-‏<div class="popup-content">
-‏<h3 id="app_title">البرنامج</h3>
-‏<button class="pkg-btn" onclick="selectPkg('اشتراك شهر = 5$')">اشتراك شهر = 5$</button>
-‏<button class="pkg-btn" onclick="selectPkg('اشتراك 3 شهور = 12$')">اشتراك 3 شهور = 12$</button>
-‏<button class="pkg-btn" onclick="selectPkg('اشتراك سنة = 40$')">اشتراك سنة = 40$</button>
-‏<input id="app_email" placeholder="دخل الايميل/رقم الموبايل">
-‏<div class="payment-box">
-‏1. شام كاش: <b>b0be4fd36746bc3a0e6ef412dfb4c9cc</b><br>
-‏2. سيريتل كاش: <b>0994674808</b>
-‏</div>
-‏<button class="btn" onclick="sendOrder('app_email')">أكد الطلب واتساب</button>
-‏<button class="btn" style="background:#555" onclick="closePopup('app_popup')">إلغاء</button>
-‏</div></div>
-‏
-‏<!-- نافذة الرصيد -->
-‏<div id="balance_popup" class="popup">
-‏<div class="popup-content">
-‏<h3 id="balance_title">تعبئة رصيد</h3>
-‏<input id="phone_num" placeholder="دخل رقم الموبايل 09xxxxxxxx">
-‏<input id="amount_num" placeholder="دخل المبلغ بالليرة">
-‏<div class="payment-box">
-‏حول على: <b>0994674808</b> سيريتل كاش
-‏</div>
-‏<button class="btn" onclick="sendBalance()">عبي واتساب</button>
-‏<button class="btn" style="background:#555" onclick="closePopup('balance_popup')">إلغاء</button>
-‏</div></div>
-‏
-‏<script>
-‏let selectedPkg='';
-‏let currentService='';
-‏
-‏function openTab(tabName){
-‏  document.querySelectorAll('.tab-content').forEach(t=>t.classList.remove('active'));
-‏  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
-‏  document.getElementById(tabName).classList.add('active');
-‏  event.target.classList.add('active');
-‏}
-‏
-‏function openGame(game){document.getElementById(game).style.display='flex'}
-‏function openApp(app){
-‏  currentService=app;
-‏  document.getElementById('app_title').innerText='اشتراك '+app.toUpperCase();
-‏  document.getElementById('app_popup').style.display='flex'
-‏}
-‏function openBalance(type){
-‏  currentService=type;
-‏  document.getElementById('balance_title').innerText='تعبئة '+type.toUpperCase();
-‏  document.getElementById('balance_popup').style.display='flex'
-‏}
-‏function closePopup(id){document.getElementById(id).style.display='none'}
-‏function selectPkg(pkg){selectedPkg=pkg}
-‏
-‏function sendOrder(inputId){
-‏  let val=document.getElementById(inputId).value;
-‏  if(!val){alert('عبي الحقل اول');return}
-‏  if(!selectedPkg){alert('اختار باقة اول');return}
-‏  let msg=`مرحبا بدي اشتري%0Aالخدمة: ${selectedPkg}%0Aالحساب: ${val}%0Aحولت على شام كاش/سيريتل كاش`;
-‏  window.open(`https://wa.me/963994674808?text=${msg}`);
-‏  closePopup(inputId.replace('_id','').replace('_email',''));
-‏}
-‏
-‏function sendBalance(){
-‏  let phone=document.getElementById('phone_num').value;
-‏  let amount=document.getElementById('amount_num').value;
-‏  if(!phone || !amount){alert('عبي الرقم والمبلغ');return}
-‏  let msg=`مرحبا بدي عبي رصيد%0Aالشبكة: ${currentService.toUpperCase()}%0Aالرقم: ${phone}%0Aالمبلغ: ${amount} ل.س%0Aحولت على سيريتل كاش 0994674808`;
-‏  window.open(`https://wa.me/963994674808?text=${msg}`);
-‏  closePopup('balance_popup');
-‏}
-‏</script>
-‏</body>
-‏</html>
-‏
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>باشا گارد</title>
+<style>
+* {margin:0; padding:0; box-sizing:border-box; font-family:Arial;}
+body {background:#0a1628; color:white; min-height:100vh;}
+.header {background:#0f2038; padding:12px; display:flex; align-items:center; justify-content:space-between; border-bottom:1px solid #1e3a5f;}
+.header-left {display:flex; align-items:center; gap:10px;}
+.logo {width:35px; height:35px; background:#1e3a5f; border-radius:8px;}
+.site-name {font-size:16px; font-weight:bold;}
+.balance {background:#1e3a5f; padding:6px 12px; border-radius:20px; display:flex; align-items:center; gap:5px; font-size:14px;}
+.menu-btn {font-size:24px; background:none; border:none; color:white; cursor:pointer;}
+.banner {background:linear-gradient(135deg,#1e3a5f,#2a4a70); margin:15px; padding:15px; border-radius:12px; display:flex; align-items:center; gap:10px;}
+.banner img {width:60px; height:60px; border-radius:50%;}
+.banner-text {font-size:13px; line-height:1.6;}
+.search {margin:15px; background:#1e3a5f; border-radius:25px; padding:12px 15px; display:flex; align-items:center; gap:10px;}
+.search input {background:none; border:none; outline:none; color:white; flex:1; font-size:14px;}
+.grid {display:grid; grid-template-columns:repeat(3,1fr); gap:15px; padding:15px; padding-bottom:80px;}
+.item {background:#1e3a5f; border-radius:15px; padding:15px 5px; text-align:center; cursor:pointer; transition:0.2s;}
+.item:hover {background:#2a4a70; transform:scale(1.05);}
+.item img {width:55px; height:55px; border-radius:12px; margin-bottom:8px;}
+.item p {font-size:12px;}
+.bottom-nav {position:fixed; bottom:0; left:0; right:0; background:#0f2038; display:flex; justify-content:space-around; padding:10px 0; border-top:1px solid #1e3a5f;}
+.bottom-nav div {text-align:center; font-size:20px; cursor:pointer;}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-left">
+    <div class="logo"></div>
+    <span class="site-name">باشا گارد</span>
+  </div>
+  <div class="balance">+ $ 0.00</div>
+  <button class="menu-btn">☰</button>
+</div>
+
+<div class="banner">
+  <img src="https://via.placeholder.com/60" alt="">
+  <div class="banner-text">
+    شحن العاب واشتراكات باقل الاسعار<br>
+    دعم فني 24 ساعة<br>
+    تواصل مع الادارة للاسعار الجملة
+  </div>
+</div>
+
+<div class="search">
+  <span>🔍</span>
+  <input type="text" placeholder="ابحث عن قسم...">
+</div>
+
+<div class="grid">
+  <div class="item">
+    <img src="https://via.placeholder.com/55/ff4444/fff?text=رصيد" alt="">
+    <p>الرصيد والإتصالات</p>
+  </div>
+  <div class="item">
+    <img src="https://via.placeholder.com/55/9b59b6/fff?text=دردشة" alt="">
+    <p>تطبيقات الدردشة</p>
+  </div>
+  <div class="item">
+    <img src="https://via.placeholder.com/55/f39c12/fff?text=ألعاب" alt="">
+    <p>الألعاب</p>
+  </div>
+  <div class="item">
+    <img src="https://via.placeholder.com/55/25D366/fff?text=W" alt="">
+    <p>الأرقام</p>
+  </div>
+  <div class="item">
+    <img src="https://via.placeholder.com/55/E50914/fff?text=N" alt="">
+    <p>المشاهدة TV</p>
+  </div>
+  <div class="item">
+    <img src="https://via.placeholder.com/55/00bcd4/fff?text=دفع" alt="">
+    <p>الدفع الإلكتروني</p>
+  </div>
+  <div class="item">
+    <img src="https://via.placeholder.com/55/9b59b6/fff?text=توثيق" alt="">
+    <p>توثيق حسابات</p>
+  </div>
+  <div class="item">
+    <img src="https://via.placeholder.com/55/FFFC00/000?text=S" alt="">
+    <p>حسابات جاهزة</p>
+  </div>
+  <div class="item">
+    <img src="https://via.placeholder.com/55/3498db/fff?text=VPN" alt="">
+    <p>مزودات الإنترنت</p>
+  </div>
+</div>
+
+<div class="bottom-nav">
+  <div>🔔</div>
+  <div>❤️</div>
+  <div>🏠</div>
+  <div>📋</div>
+  <div>📦</div>
+</div>
+
+</body>
+</html>
