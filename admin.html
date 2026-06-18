@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>لوحة تحكم باشا كارد</title>
+<style>
+body{background:#0a1628;color:white;font-family:'Cairo',sans-serif;margin:0;padding:20px}
+.container{max-width:800px;margin:0 auto}
+header{background:#0f1f3a;padding:15px;border-radius:10px;margin-bottom:20px;text-align:center;font-size:22px;font-weight:bold;color:#25D366}
+.box{background:#0f1f3a;padding:20px;border-radius:10px;margin-bottom:20px}
+input,textarea,select{width:100%;padding:12px;margin:8px 0;border:1px solid #1e2f4a;border-radius:8px;background:#0a1628;color:white;font-size:16px;box-sizing:border-box}
+button{padding:12px 20px;border:none;border-radius:8px;cursor:pointer;font-weight:bold;font-size:16px;margin:5px}
+.btn-add{background:#25D366;color:#0a1628}
+.btn-edit{background:#2196F3;color:white}
+.btn-delete{background:#f44336;color:white}
+.btn-cancel{background:#666;color:white}
+.item{background:#1a2942;padding:15px;border-radius:8px;margin:10px 0;display:flex;justify-content:space-between;align-items:center;gap:10px}
+.item-info{flex:1}
+.item-info b{color:#25D366;font-size:18px}
+.price{color:#ffc107;font-weight:bold}
+.small{font-size:13px;color:#aaa;margin-top:5px}
+.hidden{display:none}
+</style>
+</head>
+<body>
+<div class="container">
+<header>⚙️ لوحة تحكم باشا كارد</header>
+
+<div class="box">
+<h3 id="formTitle">➕ إضافة منتج جديد</h3>
+<input type="hidden" id="editId">
+<input id="name" placeholder="اسم المنتج">
+<input id="price" type="number" placeholder="السعر بالدولار">
+<select id="type">
+<option value="رصيد">رصيد</option>
+<option value="اشتراك">اشتراك</option>
+<option value="خدمة">خدمة</option>
+</select>
+<textarea id="desc" placeholder="الوصف" rows="3"></textarea>
+<button class="btn-add" onclick="saveItem()">حفظ المنتج</button>
+<button class="btn-cancel hidden" id="cancelBtn" onclick="cancelEdit()">إلغاء</button>
+</div>
+
+<div class="box">
+<h3>📦 كل المنتجات - تعديل وحذف</h3>
+<div id="itemsList">جاري التحميل...</div>
+</div>
+
+</div>
+
+<script>
+const API_URL = 'https://script.google.com/macros/s/AKfycby_your_script_id/exec';
+let editMode = false;
+
+function showItems(){
+fetch(API_URL+'?action=getItems')
+.then(r=>r.json())
+.then(data=>{
+let html='';
+if(data.items && data.items.length>0){
+data.items.forEach(item=>{
+html += `<div class="item">
+<div class="item-info">
+<b>${item.name}</b> 
+<span class="price">${item.price}$</span>
+<div class="small">النوع: ${item.type} | ${item.desc}</div>
+</div>
+<div>
+<button class="btn-edit" onclick="editItem('${item.id}','${item.name}','${item.price}','${item.type}','${item.desc.replace(/'/g,"\\'")}')">تعديل</button>
+<button class="btn-delete" onclick="deleteItem('${item.id}','${item.name}')">حذف</button>
+</div>
+</div>`;
+});
+}else{
+html = '<p style="text-align:center;color:#aaa">لا يوجد منتجات بعد</p>';
+}
+document.getElementById('itemsList').innerHTML = html;
+});
+}
+
+function saveItem(){
+let id = document.getElementById('editId').value;
+let name = document.getElementById('name').value;
+let price = document.getElementById('price').value;
+let type = document.getElementById('type').value;
+let desc = document.getElementById('desc').value;
+
+if(!name || !price){alert('اكتب الاسم والسعر');return;}
+
+let action = editMode ? 'updateItem' : 'addItem';
+let url = `${API_URL}?action=${action}&name=${encodeURIComponent(name)}&price=${price}&type=${type}&desc=${encodeURIComponent(desc)}`;
+if(editMode) url += `&id=${id}`;
+
+fetch(url).then
